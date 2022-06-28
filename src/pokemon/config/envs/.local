@@ -1,0 +1,6 @@
+DB_USER=django
+DB_NAME=dev_db
+DB_PASSWORD=django
+DB_URL=127.0.0.1
+DB_PORT=5432
+DJANGO_SECRET_KEY=xy$_*h5@eh2+4%t+wk@8==64wmf=i&w+a)2wqssb^dfwp0s+y7

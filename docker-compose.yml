@@ -1,0 +1,41 @@
+# Docker compose for local development
+
+version: '3.7'
+
+services:
+  web:
+    build: .
+    volumes:
+      - ./src:/usr/src/app/src
+    ports:
+      - 8090:5090
+    environment:
+      - ENV=dev
+      - DB_PORT=5432
+      - DB_URL=postgres-db
+    depends_on:
+      - postgres-db
+    stdin_open: true
+    tty: true
+    networks:
+      - web-service
+  postgres-db:
+    image: postgis/postgis:14-3.2-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=django
+      - POSTGRES_PASSWORD=django
+      - POSTGRES_DB=dev_db
+    networks:
+      - web-service
+
+volumes:
+  postgres_data:
+
+networks:
+  web-service:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.6.0.0/16
